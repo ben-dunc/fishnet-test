@@ -46,6 +46,27 @@ namespace Edgegap.Editor.Api
             
             return result;
         }
+
+        /// <summary>
+        /// POST v1/deployments
+        /// - Lists deployments - no pagination supported
+        /// - API Doc | https://docs.edgegap.com/api/#tag/Deployments
+        /// </summary>
+        /// <returns>
+        /// Http info with ListDeploymentResult data model
+        /// - Success: 200
+        /// </returns>
+        public async Task<EdgegapHttpResult<ListAllDeploymentsResult>> ListDeploymentsAsync()
+        {
+            HttpResponseMessage response = await GetAsync("v1/deployments");
+            EdgegapHttpResult<ListAllDeploymentsResult> result = new EdgegapHttpResult<ListAllDeploymentsResult>(response); // MIRROR CHANGE: 'new()' not supported in Unity 2020
+
+            bool isSuccess = response.StatusCode == HttpStatusCode.OK; // 200
+            if (!isSuccess)
+                return result;
+            
+            return result;
+        }
         
         /// <summary>
         /// GET v1/status/{requestId}
